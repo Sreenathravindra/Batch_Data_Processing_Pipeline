@@ -118,6 +118,9 @@ df_partitioned = (
     .withColumn("day", dayofmonth("order_timestamp"))
 )
 
+df = spark.read.parquet("s3://sreenath-v1/curated/")
+df.printSchema()
+
 
 # ----------------------------------
 # Write Curated Parquet to S3
@@ -133,6 +136,8 @@ logger.info("Writing curated parquet data to S3")
     .partitionBy("year", "month", "day")
     .parquet(curated_path)
 )
+
+
 
 logger.info("Data successfully written to curated layer")
 
